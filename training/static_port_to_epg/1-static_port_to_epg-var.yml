@@ -1,0 +1,30 @@
+---
+## This playbook requires the tenant, anp, epg to be defined prior to running this
+- name: add static port to epg
+  hosts: apic1
+  connection: local
+  gather_facts: false
+
+
+  vars_files:
+    - external_vars.yml
+
+  tasks:
+    - name: Deploy Static Path binding for given EPG
+      aci_static_binding_to_epg:
+        host: "{{ host }}"
+        username: "{{ user }}"
+        password: "{{ password }}"
+        validate_certs: "{{ validate_certs }}"
+        tenant: "{{ tenant1_name }}"
+        ap: "{{ app1_profile_name }}"
+        epg: "{{ epg1_name }}"
+        encap_id: "{{ epg1_vlan_encap }}"
+        deploy_immediacy: "{{ epg1_deploy }}"
+#       interface_mode: untagged
+        interface_mode: "{{ epg1_port_mode }}"
+        interface_type: "{{ epg1_int_port_type }}"
+        pod_id: 1
+        leafs: "{{ leaf }}"
+        interface: "{{ eth_if }}"
+        state: present

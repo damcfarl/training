@@ -1,0 +1,35 @@
+---
+- name: Use REST to add description to interface
+  hosts: apic1
+  connection: local
+  gather_facts:  false
+
+  vars_files:
+    - external_vars.yml
+
+  tasks:
+    - name: "Add description to interface"
+      aci_rest:
+        host: "{{ host }}"
+        username: "{{ user }}"
+        password: "{{ password }}"
+        validate_certs: "{{ validate_certs }}"
+        method: post
+        path: /api/node/mo/uni/tn-mgmt/mgmtp-default/oob-default/rsooBStNode-[topology/pod-1/node-105].json
+        content: {
+            "mgmtRsOoBStNode": {
+              "attributes": {
+                "tDn": "topology/pod-1/node-105",
+                "addr": "14.2.172.105/24",
+                "gw": "14.2.172.1",
+                "status": "created"
+              },
+              "children": [ ]
+            }
+          }
+      delegate_to: localhost
+      register: query_result
+
+# damcfarl
+# ansible-playbook -i hosts 1-assign_mgmt_ip.yml
+#

@@ -1,0 +1,11 @@
+---
+#action: post
+user:  damcfarl
+password:  cisco!123
+protocol: https
+validate_certs:  no
+host:  apic1
+node: 105
+mgmt_ip: 14.2.172.105
+mask: 24
+mgmt_gw: 14.2.172.1

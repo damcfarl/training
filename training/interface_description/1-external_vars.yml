@@ -1,0 +1,36 @@
+---
+#action: post
+user:  damcfarl
+password:  cisco!123
+protocol: https
+validate_certs:  no
+host:  apic1
+interface_path: "105_eth1_45"
+leaf: "105"
+eth_if: "45"
+interface_description: "dm_tiaa 3rd change to N3K-2 Eth 1/45"
+
+tenant1_name: dm_T01
+vrf_name: Prod
+bdname: External
+bd:
+    name:  bd_A
+    ip:  10.10.7.1
+    mask: 24
+
+app1_profile_name: MyApp
+contract_name: Contract1
+filter_name:  Contract1_filter
+entry_name:  Filter1_entry
+subject_name: Subject1
+epg1_name: External
+epg2_name: db_epg
+epg1_vlan_encap: 1789
+epg1_deploy: lazy
+port_mode: trunk
+
+
+
+## private_key: ./xxx.key
+## certificate_name: ansible-xxx
+

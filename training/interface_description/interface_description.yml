@@ -1,0 +1,46 @@
+---
+- name: Use REST to add description to interface
+  hosts: apic1
+  connection: local
+  gather_facts:  false
+
+  vars_files:
+    - external_vars.yml
+
+  tasks:
+    - name: "Add description to interface"
+      aci_rest:
+        host: "{{ host }}"
+        username: "{{ user }}"
+        password: "{{ password }}"
+        validate_certs: "{{ validate_certs }}"
+        method: post
+        path: '/api/node/mo/uni/infra/hpaths-105_eth1_45.json'
+        content: { 
+     
+    "infraHPathS": {
+        "attributes": {
+            "rn": "hpaths-105_eth1_45",
+            "dn": "uni/infra/hpaths-105_eth1_45",
+            "descr": "dm change to N3K-2 Eth 1/45",
+            "name": "105_eth1_45"
+        },
+        "children": [
+            {
+                "infraRsHPathAtt": {
+                    "attributes": {
+                        "dn": "uni/infra/hpaths-105_eth1_45/rsHPathAtt-[topology/pod-1/paths-105/pathep-[eth1/45]]",
+                        "tDn": "topology/pod-1/paths-105/pathep-[eth1/45]"
+                    }
+                }
+            }
+        ]
+    }
+}
+
+      delegate_to: localhost
+      register: query_result
+
+# damcfarl
+# ansible-playbook loop_port_rest_aci_json.yml -i hosts -vvv | grep '/rsaccBaseGrp|tDn'
+#

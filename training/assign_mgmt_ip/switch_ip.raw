@@ -1,0 +1,18 @@
+timestamp: 12:19:00 DEBUG 
+method: POST
+url: https://14.2.172.141/api/node/mo/uni/tn-mgmt/mgmtp-default/oob-default/rsooBStNode-[topology/pod-1/node-201].json
+payload{"mgmtRsOoBStNode":{"attributes":{"tDn":"topology/pod-1/node-201","addr":"192.168.201.100/24","gw":"192.168.201.1","status":"created"},"children":[]}}
+response: {"totalCount":"0","imdata":[]}
+
+
+{
+    "mgmtRsOoBStNode": {
+        "attributes": {
+            "tDn": "topology/pod-1/node-201",
+            "addr": "192.168.201.100/24",
+            "gw": "192.168.201.1",
+            "status": "created"
+        },
+        "children": []
+    }
+}

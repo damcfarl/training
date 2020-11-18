@@ -1,0 +1,52 @@
+---
+## This will create the vlan pool and the encap blocks
+- name: add static port to epg
+  hosts: apic1
+  connection: local
+  gather_facts: false
+
+
+  vars_files:
+    - external_vars.yml
+
+  tasks:
+    - name: Create the vlan pool
+      cisco.aci.aci_vlan_pool:
+        host: "{{ host }}"
+        username: "{{ user }}"
+        password: "{{ password }}"
+        validate_certs: "{{ validate_certs }}"
+        pool: "{{ vlan1_pool }}"
+        pool_allocation_mode: "{{ vlan1_pool_allocation_mode }}"
+        state: present
+      delegate_to: localhost
+
+    - name: Create the vlan pool type
+      cisco.aci.aci_encap_pool:
+        host: "{{ host }}"
+        username: "{{ user }}"
+        password: "{{ password }}"
+        validate_certs: "{{ validate_certs }}"
+        pool: "{{ vlan1_pool }}"
+        pool_type: "{{ vlan1_pool_type }}"
+        pool_allocation_mode: "{{ vlan1_pool_allocation_mode }}"
+        state: present
+        state: present
+      delegate_to: localhost
+
+    - name: Add the encap values (range)
+      cisco.aci.aci_encap_pool_range:
+        host: "{{ host }}"
+        username: "{{ user }}"
+        password: "{{ password }}"
+        validate_certs: "{{ validate_certs }}"
+        pool: "{{ vlan1_pool }}"
+        pool_type: "{{ vlan1_pool_type }}"
+        pool_allocation_mode: "{{ vlan1_pool_allocation_mode }}"
+        range_name: "{{ vlan1_range_name }}"
+        range_start: "{{ vlan1_range_start }}"
+        range_end: "{{ vlan1_range_end }}"
+        allocation_mode: "{{ vlan1_encap_allocation_mode }}"
+        state: present
+        state: present
+      delegate_to: localhost
